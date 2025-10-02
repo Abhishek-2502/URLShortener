@@ -6,6 +6,7 @@
 
 * [Overview](#overview)
 * [Key Features](#key-features)
+* [Tech Stack](#tech-stack)
 * [Getting Started](#getting-started)
 * [Screenshots](#screenshots)
 * [Contributions](#contribution)
