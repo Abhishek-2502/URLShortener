@@ -5,7 +5,9 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "custom-gradient": "linear-gradient(to right, #3b82f6, #9333ea)", // equivalent to from-blue-500 to-purple-600
+        "custom-gradient": "linear-gradient(to right, #140b6cff, #77a3efff)", 
+        "custom-gradient-footer": "linear-gradient(to right, #140b6cff, #77a3efff, #140b6cff)", 
+        "custom-gradient-navbar": "linear-gradient(to right, #ffffffff, #ffffffff)", 
         "custom-gradient-2": "linear-gradient(to left, #3b82f6, #f43f5e)",
         "card-gradient": "linear-gradient(to right, #38b2ac, #4299e1)",
       },

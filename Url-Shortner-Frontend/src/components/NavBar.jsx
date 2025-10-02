@@ -19,10 +19,10 @@ const Navbar = () => {
   };
 
   return (
-    <div className="h-16 bg-custom-gradient  z-50 flex items-center sticky top-0 ">
+    <div className="h-16 bg-custom-gradient-navbar  z-50 flex items-center sticky top-0 ">
       <div className="lg:px-14 sm:px-8 px-4 w-full flex justify-between">
         <Link to="/">
-          <h1 className="font-bold text-3xl text-white italic sm:mt-0 mt-2">
+          <h1 className="font-bold text-3xl text-black italic sm:mt-0 mt-2">
             Shortify
           </h1>
         </Link>
@@ -34,7 +34,7 @@ const Navbar = () => {
           <li className="hover:text-btnColor font-[500]  transition-all duration-150">
             <Link
               className={`${
-                path === "/" ? "text-white font-semibold" : "text-gray-200"
+                path === "/" ? "text-black font-semibold" : "text-gray-600"
               }`}
               to="/"
             >
@@ -44,7 +44,7 @@ const Navbar = () => {
           <li className="hover:text-btnColor font-[500]  transition-all duration-150">
             <Link
               className={`${
-                path === "/about" ? "text-white font-semibold" : "text-gray-200"
+                path === "/about" ? "text-black font-semibold" : "text-gray-600"
               }`}
               to="/about"
             >
@@ -55,7 +55,7 @@ const Navbar = () => {
             <li className="hover:text-btnColor font-[500]  transition-all duration-150">
             <Link
               className={`${
-                path === "/dashboard" ? "text-white font-semibold" : "text-gray-200"
+                path === "/dashboard" ? "text-black font-semibold" : "text-gray-600"
               }`}
               to="/dashboard"
             >

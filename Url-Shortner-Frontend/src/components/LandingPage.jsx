@@ -15,10 +15,16 @@ const LandingPage = () => {
   console.log("TOKEN FROM LANDING PAGE: " + token);
 
   const dashBoardNavigateHandler = () => {
-
+    if (token) {
+      navigate("/dashboard");
+    } else {
+      navigate("/register");
+    }
   };
   return (
     <div className="min-h-[calc(100vh-64px)]  lg:px-14 sm:px-8 px-4">
+      
+      
       <div className="lg:flex-row flex-col    lg:py-5   pt-16   lg:gap-10 gap-8 flex justify-between items-center">
         <div className=" flex-1">
           <motion.h1
@@ -68,6 +74,9 @@ const LandingPage = () => {
             </motion.button>
           </div>
         </div>
+
+
+        {/* Image Div*/}
         <div className="   flex-1 flex   justify-center w-full">
           <motion.img
             initial={{ opacity: 0 }}
@@ -82,6 +91,8 @@ const LandingPage = () => {
           />
         </div>
       </div>
+
+      {/* Cards Div*/}
       <div className="sm:pt-12 pt-7">
         <motion.p
           initial={{ opacity: 0, y: 50 }}
@@ -95,7 +106,9 @@ const LandingPage = () => {
         >
           Trusted by individuals and teams at the world best companies{" "}
         </motion.p>
-        <div className="pt-4 pb-7 grid lg:gap-7 gap-4 xl:grid-cols-4  lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 mt-4">
+
+       
+        <div className="pt-4 pb-7 grid lg:gap-7 gap-4 xl:grid-cols-4  lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 mt-4 mb-10">
           <Card
             title="Simple URL Shortening"
             desc="Experience the ease of creating short, memorable URLs in just a few clicks. Our intuitive interface and quick setup process ensure you can start shortening URLs without any hassle."
@@ -114,7 +127,9 @@ const LandingPage = () => {
 "
           />
         </div>
+
       </div>
+      
     </div>
   );
 };
