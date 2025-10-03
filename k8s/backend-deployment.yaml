@@ -17,5 +17,5 @@ spec:
         image: abhi25022004/shortify-backend:latest  # replace with your image
         imagePullPolicy: Always  # Always pull the latest image
         ports:
-        - containerPort: 9090
+        - containerPort: 8081
 

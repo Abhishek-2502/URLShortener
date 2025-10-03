@@ -79,7 +79,7 @@ Follow these steps to set up and run UrlShortener locally.
     java -jar target/urlshortener-backend-*.jar
     # OR if using an IDE like IntelliJ, run the main application class.
     ```
-    The API should start running on `http://localhost:9090`.
+    The API should start running on `http://localhost:8081`.
 
 ### 3\. Frontend Setup
 

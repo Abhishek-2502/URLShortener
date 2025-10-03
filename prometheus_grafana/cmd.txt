@@ -18,7 +18,7 @@ kubectl apply -f grafana-service.yaml
 
 
 # Port-forward to test locally:
-kubectl port-forward svc/prometheus-service 30900:9091
+kubectl port-forward svc/prometheus-service 30900:9090
 kubectl port-forward svc/grafana-service 32000:3000
 
 
@@ -31,8 +31,9 @@ Grafana: http://localhost:32000
 
 2. Login (default: admin/admin)
 
-3. Add Prometheus as a Data Source: URL → http://prometheus-service:9091 (or your NodePort URL)
+3. Add Prometheus as a Data Source: URL → http://prometheus-service:9090 (or your NodePort URL)
 
 4. Click Dashboard → Import → Upload JSON
+(https://grafana.com/grafana/dashboards/19004-spring-boot-statistics/)
 
 5. Select the JSON file → Import
