@@ -11,6 +11,6 @@ export default defineConfig({
     watch: {
       usePolling: true // needed for hot reload in Docker sometimes
     },
-    allowedHosts: ['.localhost', '.localdomain', 'urlshortener-frontend-x13q.onrender.com'] 
+    allowedHosts: ['.localhost', '.localdomain', 'urlshortener-frontend-x13q.onrender.com','shortifyreac.netlify.app/'] 
   }
 })
