@@ -1,6 +1,9 @@
 # Use official Node.js image
 FROM node:18-alpine
 
+# Set memory limit for Node.js during the build
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+
 # Set working directory
 WORKDIR /app
 
