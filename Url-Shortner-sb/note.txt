@@ -1,0 +1,6 @@
+Docker-compose and .env is used if you want to run a mysql container. Also you have to change application.properties.
+# Connect to MySQL container
+docker exec -it mysql-db bash
+mysql -u shortifyuser -p
+
+If you want to use Render hosted postgres, use only Dockerfile.
