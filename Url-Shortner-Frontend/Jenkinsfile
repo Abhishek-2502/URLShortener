@@ -13,10 +13,9 @@ pipeline {
             steps {
                 echo 'Pruning unused Docker resources before build...'
                 sh '''
-                    docker-compose down --remove-orphans --volumes || true
-                    docker container rm -f businesslens-frontend-1 || true
-                    docker container rm -f businesslens-backend-1 || true
-                    docker system prune -f --volumes || true
+                    docker container prune -f
+                    docker image prune -f
+                    docker container rm -f shortify-frontend-container || true
                 '''
             }
         }
@@ -25,8 +24,8 @@ pipeline {
             steps {
                 echo 'Building and starting Docker containers...'
                 sh '''
-                    docker-compose build --no-cache
-                    docker-compose up -d
+                    docker build -t shortify-frontend .
+                    docker run -it -p 5173:5173 --name shortify-frontend-container shortify-frontend
                 '''
             }
         }

@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: abhi25022004/businesslens-frontend:latest  # replace with your image
+        image: abhi25022004/shortify-frontend:latest 
         imagePullPolicy: Always  
         ports:
         - containerPort: 5173
-        env:
-        - name: VITE_API_URL
-          value: "http://127.0.0.1:5000/api"
+        envFrom:
+        - secretRef:
+            name: frontend-env

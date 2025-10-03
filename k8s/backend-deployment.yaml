@@ -14,10 +14,8 @@ spec:
     spec:
       containers:
       - name: backend
-        image: abhi25022004/businesslens-backend:latest  # replace with your image
+        image: abhi25022004/shortify-backend:latest  # replace with your image
         imagePullPolicy: Always  # Always pull the latest image
         ports:
-        - containerPort: 5000
-        envFrom:
-        - secretRef:
-            name: backend-env
+        - containerPort: 9090
+

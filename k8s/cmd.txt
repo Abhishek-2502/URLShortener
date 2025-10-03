@@ -1,8 +1,8 @@
-kubectl apply -f backend-secret.yaml
+kubectl apply -f frontend-secret.yaml
 kubectl apply -f backend-deployment.yaml
 kubectl apply -f backend-service.yaml
 kubectl apply -f frontend-deployment.yaml
 kubectl apply -f frontend-service.yaml
 
 kubectl port-forward svc/frontend-service 5173:5173
-kubectl port-forward svc/backend-service 5000:5000
+kubectl port-forward svc/backend-service 9090:9090
