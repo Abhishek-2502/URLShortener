@@ -15,52 +15,20 @@ public class RedirectController {
     @Autowired
     private UrlMappingService urlMappingService;
 
-    // @GetMapping("/{shortUrl}")
-    // public ResponseEntity<Void> redirect(@PathVariable String shortUrl) {
-    // UrlMapping urlMapping = urlMappingService.getOriginalUrl(shortUrl);
-    // if (urlMapping != null) {
-    // HttpHeaders httpHeaders = new HttpHeaders();
-
-    // // Ensure no double slash
-    // String originalUrl = urlMapping.getOriginalUrl();
-    // if (originalUrl.startsWith("/")) {
-    // originalUrl = originalUrl.substring(1);
-    // }
-
-    // httpHeaders.add("Location", originalUrl);
-    // return ResponseEntity.status(302).headers(httpHeaders).build();
-    // } else {
-    // return ResponseEntity.notFound().build();
-    // }
-    // }
-
     @GetMapping("/{shortUrl}")
     public ResponseEntity<Void> redirect(@PathVariable String shortUrl) {
-        UrlMapping urlMapping = urlMappingService.getOriginalUrl(shortUrl);
-        if (urlMapping != null) {
-            HttpHeaders httpHeaders = new HttpHeaders();
-            String originalUrl = urlMapping.getOriginalUrl();
+    UrlMapping urlMapping = urlMappingService.getOriginalUrl(shortUrl);
+    if (urlMapping != null) {
+    HttpHeaders httpHeaders = new HttpHeaders();
 
-            // Split protocol from rest
-            String[] parts = originalUrl.split("://", 2);
-            if (parts.length == 2) {
-                String protocol = parts[0]; // "http" or "https"
-                String path = parts[1];
+    // Ensure no double slash
+    String originalUrl = urlMapping.getOriginalUrl();
 
-                // Replace multiple slashes in path with single slash
-                path = path.replaceAll("/+", "/");
-
-                originalUrl = protocol + "://" + path;
-            } else {
-                // No protocol, just normalize path
-                originalUrl = originalUrl.replaceAll("/+", "/");
-            }
-
-            httpHeaders.add("Location", originalUrl);
-            return ResponseEntity.status(302).headers(httpHeaders).build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    httpHeaders.add("Location", originalUrl);
+    return ResponseEntity.status(302).headers(httpHeaders).build();
+    } else {
+    return ResponseEntity.notFound().build();
+    }
     }
 
 }
