@@ -41,3 +41,8 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 # Run the container, mapping port 9090 on host to 9090 in container
 # docker run -d -p 9090:9090 --name shortify-backend-container shortify-backend
 
+# Tag the image for Docker Hub
+# docker tag shortify-backend abhi25022004/shortify-backend:latest
+
+# Push the image to Docker Hub
+# docker push abhi25022004/shortify-backend:latest
