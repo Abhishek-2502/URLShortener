@@ -65,8 +65,8 @@ const Navbar = () => {
           )}
           {!token && (
             <Link to="/register">
-              <li className=" sm:ml-0 -ml-1 bg-rose-700 text-white  cursor-pointer w-24 text-center font-semibold px-2 py-2 rounded-md  hover:text-slate-300   transition-all duration-150">
-                SignUp
+              <li className=" sm:ml-0 -ml-1 bg-custom-gradient text-white  cursor-pointer w-24 text-center font-semibold px-2 py-2 rounded-md  hover:text-slate-300   transition-all duration-150">
+                Sign Up
               </li>
             </Link>
             )}
@@ -75,7 +75,7 @@ const Navbar = () => {
             <button
              onClick={onLogOutHandler}
              className="sm:ml-0 -ml-1 bg-rose-700 text-white  cursor-pointer w-24 text-center font-semibold px-2 py-2 rounded-md  hover:text-slate-300   transition-all duration-150">
-              LogOut
+              Log Out
             </button>
             )}
         </ul>
