@@ -24,7 +24,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/">
             <h1 className="font-bold text-3xl text-black italic sm:mt-0 mt-2">
-              Shortify
+              Shortify New
             </h1>
           </Link>
 
