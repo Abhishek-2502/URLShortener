@@ -6,7 +6,7 @@ import { data } from 'autoprefixer';
 import TextField from '../TextField';
 import { Tooltip } from '@mui/material';
 import { RxCross2 } from 'react-icons/rx';
-import api from '../../api/api';
+import api from '../../apis/api';
 import toast from 'react-hot-toast';
 
 const CreateNewShorten = ({ setOpen, refetch }) => {

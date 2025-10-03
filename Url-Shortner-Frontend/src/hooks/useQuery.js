@@ -1,6 +1,6 @@
 
 import { useQuery } from "react-query"
-import api from "../api/api"
+import api from "../apis/api"
 
 
 export const useFetchMyShortUrls = (token, onError) => {
