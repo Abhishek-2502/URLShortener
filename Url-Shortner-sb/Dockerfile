@@ -28,8 +28,8 @@ WORKDIR /app
 # Copy the built JAR file from the build stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose port 9090 for the Spring Boot application
-EXPOSE 9090
+# Expose port 8081 for the Spring Boot application
+EXPOSE 8081
 
 # Specify the command to run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
@@ -38,6 +38,11 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 # Build the Docker image
 # docker build -t shortify-backend .
 
-# Run the container, mapping port 9090 on host to 9090 in container
-# docker run -d -p 9090:9090 --name shortify-backend-container shortify-backend
+# Run the container, mapping port 8081 on host to 8081 in container
+# docker run -d -p 8081:8081 --name shortify-backend-container shortify-backend
 
+# Tag the image for Docker Hub
+# docker tag shortify-backend abhi25022004/shortify-backend:latest
+
+# Push the image to Docker Hub
+# docker push abhi25022004/shortify-backend:latest

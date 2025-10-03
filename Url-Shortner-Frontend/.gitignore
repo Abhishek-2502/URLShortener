@@ -1,5 +1,5 @@
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,18 +7,86 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
 
-# Editor directories and files
+# Dependency directories
+node_modules/
+jspm_packages/
+bower_components/
+web_modules/
+
+# Build outputs
+dist/
+dist-ssr/
+build/
+out/
+.cache/
+.parcel-cache/
+.temp/
+.docusaurus/
+.svelte-kit/
+.nuxt/
+.next/
+.vuepress/dist
+.vitepress/cache
+.vitepress/dist
+
+# Coverage / testing
+coverage/
+*.lcov
+.nyc_output/
+.vscode-test/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.*  
+!.env.example
+
+# IDE / Editor files
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+.DS_Store
+Thumbs.db
+
+# Package archives
+*.tgz
+
+# Optional caches
+.npm
+.eslintcache
+.stylelintcache
+.yarn-integrity
+
+# Yarn Berry (v2+)
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Compiled binary addons
+build/Release/
+
+# Serverless / cloud
+.serverless/
+.dynamodb/
+.firebase/
+
+# Vite config timestamp files
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
