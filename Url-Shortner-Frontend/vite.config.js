@@ -11,6 +11,6 @@ export default defineConfig({
     watch: {
       usePolling: true // needed for hot reload in Docker sometimes
     },
-    allowedHosts: ['.localhost', '.localdomain', 'your-domain.com'] 
+    allowedHosts: ['.localhost', '.localdomain', 'urlshortener-ylre.onrender.com'] 
   }
 })
