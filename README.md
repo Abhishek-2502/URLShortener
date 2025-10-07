@@ -111,11 +111,11 @@ Follow these steps to set up and run UrlShortener locally.
     The React application should open in your browser at `http://localhost:5173` (or the configured port).
 
 ## Screenshots
-  ![alt text](<Images/Login.png>)  
-  ![alt text](<Images/Home.png>)  
-  ![alt text](<Images/About.png>)  
-  ![alt text](<Images/Create_Short_URL.png>)  
-  ![alt text](<Images/Dashboard.png>)  
+  ![alt text](<Images and Other/Login.png>)  
+  ![alt text](<Images and Other/Home.png>)  
+  ![alt text](<Images and Other/About.png>)  
+  ![alt text](<Images and Other/Create_Short_URL.png>)  
+  ![alt text](<Images and Other/Dashboard.png>)  
 
 ## Contribution
 
