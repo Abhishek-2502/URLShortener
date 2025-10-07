@@ -47,6 +47,23 @@ UrlShortener is a full-stack application leveraging modern, industry-standard te
 | **React Router** | Managing client-side routing and navigation within the application. |
 | **Axios** | Efficient, promise-based HTTP client for communicating with the Spring Boot API. |
 
+### DevOps
+
+| Technology                      | Purpose                                                                                                                                     |
+| :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Docker**                      | Containerization platform to package applications with all dependencies, ensuring consistency across environments.                          |
+| **Docker Compose**              | Tool for defining and managing multi-container Docker applications using a single configuration file.                                       |
+| **Kubernetes (K8s)**            | Container orchestration platform for automated deployment, scaling, and management of containerized applications.                           |
+| **Jenkins**                     | Continuous Integration and Continuous Deployment (CI/CD) automation server for building, testing, and deploying applications.               |
+| **Terraform**                   | Infrastructure as Code (IaC) tool for provisioning and managing cloud resources in a consistent and automated way.                          |
+| **Ansible**                     | Configuration management and automation tool for provisioning servers and deploying applications efficiently.                               |
+| **Prometheus**                  | Monitoring and alerting toolkit designed for collecting and querying time-series metrics from applications and infrastructure.              |
+| **Grafana**                     | Visualization and analytics platform used to create dashboards and monitor metrics collected by Prometheus and other sources.               |
+| **Google Cloud Platform (GCP)** | Cloud service provider used for hosting, scaling, and managing applications and infrastructure.                                             |
+| **Render**                      | Cloud platform for hosting and deploying web applications and services with automated builds and scalability.                               |
+| **Vercel**                      | Frontend deployment platform optimized for React and other JavaScript frameworks, enabling fast global delivery and easy CI/CD integration. |
+
+
 ## Getting Started
 
 Follow these steps to set up and run UrlShortener locally.
