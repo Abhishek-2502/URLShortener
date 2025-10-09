@@ -6,9 +6,12 @@ import com.url.shortner.models.ClickEvent;
 import com.url.shortner.models.User;
 import com.url.shortner.service.UrlMappingService;
 import com.url.shortner.service.UserService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -20,6 +23,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/urls")
+@Validated
 public class UrlMappingController {
 
     @Autowired
@@ -28,49 +32,70 @@ public class UrlMappingController {
     @Autowired
     private UserService userService;
 
-    // {"originalUrl" : "https://example.com"}
-
+    /**
+     * Create short URL
+     */
     @PostMapping("/shorten")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<UrlMappingDTO> createShortUrl(@RequestBody Map<String , String> request ,
-                                                        Principal principal){
+    public ResponseEntity<UrlMappingDTO> createShortUrl(@Valid @RequestBody Map<String, String> request,
+                                                        Principal principal) {
         String originalUrl = request.get("originalUrl");
         User user = userService.findByUsername(principal.getName());
-        UrlMappingDTO urlMappingDTO = urlMappingService.createShortUrl(originalUrl , user);
+        UrlMappingDTO urlMappingDTO = urlMappingService.createShortUrl(originalUrl, user);
         return ResponseEntity.ok(urlMappingDTO);
     }
 
+    /**
+     * Get all URLs of logged-in user
+     */
     @GetMapping("/myurls")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<UrlMappingDTO>> getUserUrls(Principal principal){
+    public ResponseEntity<List<UrlMappingDTO>> getUserUrls(Principal principal) {
         User user = userService.findByUsername(principal.getName());
         List<UrlMappingDTO> urls = urlMappingService.getUrlsByUser(user);
         return ResponseEntity.ok(urls);
 
     }
+
+    /**
+     * Get click analytics for a short URL
+     */
     @GetMapping("/analytics/{shortUrl}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<ClickEventDTO>> getUrlAnalytics(@PathVariable String shortUrl,
+    public ResponseEntity<List<ClickEventDTO>> getUrlAnalytics(@PathVariable @NotBlank String shortUrl,
                                                                @RequestParam("startDate") String startDate,
                                                                @RequestParam("endDate") String endDate
-                                                               ){
+    ) {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        LocalDateTime start = LocalDateTime.parse(startDate,formatter);
-        LocalDateTime end = LocalDateTime.parse(endDate,formatter);
-       List<ClickEventDTO> clickEventDTOS =  urlMappingService.getClickEventsByDate(shortUrl , start ,end);
-       return ResponseEntity.ok(clickEventDTOS);
+        LocalDateTime start = LocalDateTime.parse(startDate, formatter);
+        LocalDateTime end = LocalDateTime.parse(endDate, formatter);
+
+        if (end.isBefore(start)) {
+            throw new IllegalArgumentException("End date cannot be before start date");
+        }
+
+        List<ClickEventDTO> clickEventDTOS = urlMappingService.getClickEventsByDate(shortUrl, start, end);
+        return ResponseEntity.ok(clickEventDTOS);
     }
 
+    /**
+     * Get total clicks for logged-in user in a date range
+     */
     @GetMapping("/totalClicks")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Map<LocalDate , Long>> getTotalClicksByDate(Principal principal,
-                                                                      @RequestParam("startDate") String startDate,
-                                                                      @RequestParam("endDate") String endDate){
+    public ResponseEntity<Map<LocalDate, Long>> getTotalClicksByDate(Principal principal,
+                                                                     @RequestParam("startDate") String startDate,
+                                                                     @RequestParam("endDate") String endDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
         User user = userService.findByUsername(principal.getName());
-        LocalDate start = LocalDate.parse(startDate,formatter);
-        LocalDate end = LocalDate .parse(endDate,formatter);
-        Map<LocalDate , Long> totalClicks =  urlMappingService.getTotalClicksByUserAndDate(user , start ,end);
+        LocalDate start = LocalDate.parse(startDate, formatter);
+        LocalDate end = LocalDate.parse(endDate, formatter);
+
+        if (end.isBefore(start)) {
+            throw new IllegalArgumentException("End date cannot be before start date");
+        }
+
+        Map<LocalDate, Long> totalClicks = urlMappingService.getTotalClicksByUserAndDate(user, start, end);
         return ResponseEntity.ok(totalClicks);
 
     }
