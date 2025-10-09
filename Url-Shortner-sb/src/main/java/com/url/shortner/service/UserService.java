@@ -6,6 +6,9 @@ import com.url.shortner.repository.UserRepository;
 import com.url.shortner.security.jwt.JwtAuthenticationResponse;
 import com.url.shortner.security.jwt.JwtUtils;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+@Data
+@NoArgsConstructor
 public class UserService {
 
     @Autowired

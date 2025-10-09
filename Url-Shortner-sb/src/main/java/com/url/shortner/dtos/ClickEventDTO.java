@@ -2,31 +2,21 @@ package com.url.shortner.dtos;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClickEventDTO {
+
+    @NotNull(message = "Click date cannot be null")
     private LocalDate clickDate;
+
+    @NotNull(message = "Count cannot be null")
+    @Min(value = 0, message = "Count must be zero or positive")
     private Long count;
-
-    public ClickEventDTO(LocalDate clickDate, Long count) {
-        this.clickDate = clickDate;
-        this.count = count;
-    }
-
-    public LocalDate getClickDate() {
-        return clickDate;
-    }
-
-    public void setClickDate(LocalDate clickDate) {
-        this.clickDate = clickDate;
-    }
-
-    public Long getCount() {
-        return count;
-    }
-
-    public void setCount(Long count) {
-        this.count = count;
-    }
-
-    public ClickEventDTO() {
-    }
 }
