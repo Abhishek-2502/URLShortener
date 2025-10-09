@@ -34,6 +34,14 @@ render psql dpg-d3fq6715pdvs73bllbn0-a
 
 
 ## API Documentation:
+### **0. Health Check** — `GET`
+
+```
+http://localhost:8081/health
+```
+
+---
+
 ### **1. Register User** — `POST`
 
 ```
