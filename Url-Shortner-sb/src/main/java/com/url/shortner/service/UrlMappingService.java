@@ -28,6 +28,7 @@ public class UrlMappingService {
     @Autowired
     private ClickEventRepository clickEventRepository;
 
+    // Create a short URL for the given original URL and user
     public UrlMappingDTO createShortUrl(String originalUrl, User user) {
 
         String shortUrl = generateShortUrl();
@@ -41,6 +42,7 @@ public class UrlMappingService {
 
     }
 
+    // Generate a random 8-character alphanumeric string
     private String generateShortUrl() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -54,6 +56,7 @@ public class UrlMappingService {
 
     }
 
+    // Convert UrlMapping entity to UrlMappingDTO
     private UrlMappingDTO convertToDto(UrlMapping urlMapping){
         UrlMappingDTO urlMappingDTO = new UrlMappingDTO();
         urlMappingDTO.setId(urlMapping.getId());
@@ -65,10 +68,12 @@ public class UrlMappingService {
         return urlMappingDTO;
     }
 
+    // Get all URLs for a specific user
     public List<UrlMappingDTO> getUrlsByUser(User user) {
         return urlMappingRepository.findByUser(user).stream().map(this::convertToDto).toList();
     }
 
+    // Get click events for a specific short URL in a date range
     public List<ClickEventDTO> getClickEventsByDate(String shortUrl, LocalDateTime start, LocalDateTime end) {
         UrlMapping urlMapping = urlMappingRepository.findByShortUrl(shortUrl);
         if(urlMapping != null){
@@ -87,12 +92,14 @@ public class UrlMappingService {
         return  null;
     }
 
+    // Get total clicks for a user in a date range
     public Map<LocalDate, Long> getTotalClicksByUserAndDate(User user, LocalDate start, LocalDate end) {
         List<UrlMapping> urlMappings = urlMappingRepository.findByUser(user);
         List<ClickEvent> clickEvents = clickEventRepository.findByUrlMappingInAndClickDateBetween(urlMappings , start.atStartOfDay(), end.plusDays(1).atStartOfDay());
         return clickEvents.stream().collect(Collectors.groupingBy(click -> click.getClickDate().toLocalDate(), Collectors.counting()));
     }
 
+    // Retrieve original URL and increment click count
     public UrlMapping getOriginalUrl(String shortUrl) {
         UrlMapping urlMapping = urlMappingRepository.findByShortUrl(shortUrl);
         if(urlMapping != null){
@@ -109,6 +116,7 @@ public class UrlMappingService {
         return urlMapping;
     }
 
+    // Delete URL mapping along with its click events
     @Transactional  // Ensure all deletions happen in a single transaction
     public void deleteUrlMapping(String shortUrl, User user) {
         UrlMapping urlMapping = urlMappingRepository.findByShortUrl(shortUrl);
@@ -126,5 +134,22 @@ public class UrlMappingService {
 
         // Delete the URL mapping itself
         urlMappingRepository.delete(urlMapping);
+    }
+
+    // Update the original URL for a given short URL
+    public UrlMappingDTO updateOriginalUrl(String shortUrl, String newOriginalUrl, User user) {
+        UrlMapping urlMapping = urlMappingRepository.findByShortUrl(shortUrl);
+
+        if (urlMapping == null) {
+            throw new NoSuchElementException("URL mapping not found");
+        }
+
+        if (urlMapping.getUser().getId() != user.getId()) {
+            throw new SecurityException("You don't have permission to update this URL");
+        }
+
+        urlMapping.setOriginalUrl(newOriginalUrl);
+        urlMappingRepository.save(urlMapping);
+        return convertToDto(urlMapping);
     }
 }

@@ -125,10 +125,31 @@ http://localhost:8081/api/urls/{shortUrl}
 ```
 Authorization: Bearer <JWT_TOKEN>
 ```
+---
+
+### **6. Update Original URL** — `PUT`
+
+```
+http://localhost:8081/api/urls/{shortUrl}
+```
+
+**Headers:**
+
+```
+Authorization: Bearer <JWT_TOKEN>
+```
+
+**Body (JSON):**
+
+```json
+{
+  "originalUrl": "https://example.com/new-long-page"
+}
+```
 
 ---
 
-### **6. Get URL Analytics by Date Range** — `GET`
+### **7. Get URL Analytics by Date Range** — `GET`
 
 ```
 http://localhost:8081/api/urls/analytics/{shortUrl}?startDate=2025-10-01T00:00:00&endDate=2025-10-09T23:59:59
@@ -148,7 +169,7 @@ Authorization: Bearer <JWT_TOKEN>
 
 ---
 
-### **7. Get Total Clicks by Date Range** — `GET`
+### **8. Get Total Clicks by Date Range** — `GET`
 
 ```
 http://localhost:8081/api/urls/totalClicks?startDate=2025-10-01&endDate=2025-10-09
@@ -162,7 +183,7 @@ Authorization: Bearer <JWT_TOKEN>
 
 ---
 
-### **8. Redirect Short URL** — `GET`
+### **9. Redirect Short URL** — `GET`
 
 ```
 http://localhost:8081/{shortUrl}

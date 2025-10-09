@@ -6,6 +6,7 @@ import {
   FaExternalLinkAlt,
   FaRegCalendarAlt,
   FaTrashAlt,
+  FaEdit,
 } from "react-icons/fa";
 import { IoCopy } from "react-icons/io5";
 import { LiaCheckSolid } from "react-icons/lia";
@@ -16,7 +17,14 @@ import { useStoreContext } from "../../contextApi/ContextApi";
 import { Hourglass } from "react-loader-spinner";
 import Graph from "./Graph";
 
-const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate, onDelete }) => {
+const ShortenItem = ({
+  originalUrl,
+  shortUrl,
+  clickCount,
+  createdDate,
+  onDelete,
+  refetch,
+}) => {
   const { token } = useStoreContext();
   const navigate = useNavigate();
   const [isCopied, setIsCopied] = useState(false);
@@ -24,6 +32,11 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate, onDelete 
   const [loader, setLoader] = useState(false);
   const [selectedUrl, setSelectedUrl] = useState("");
   const [analyticsData, setAnalyticsData] = useState([]);
+
+  // --- Editable URL State ---
+  const [editing, setEditing] = useState(false);
+  const [newOriginalUrl, setNewOriginalUrl] = useState(originalUrl);
+  const [updating, setUpdating] = useState(false);
 
   const subDomain = import.meta.env.VITE_REACT_FRONT_END_URL.replace(
     /^https?:\/\//,
@@ -66,6 +79,34 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate, onDelete 
       fetchMyShortUrl();
     }
   }, [selectedUrl]);
+
+  // --- Update Original URL Handler ---
+  const updateOriginalUrl = async () => {
+    if (!newOriginalUrl || newOriginalUrl === originalUrl) {
+      setEditing(false);
+      return;
+    }
+    try {
+      setUpdating(true);
+      await api.put(
+        `/api/urls/${shortUrl}`,
+        { originalUrl: newOriginalUrl },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      toast.success("URL updated successfully!");
+      setEditing(false);
+      if (refetch) refetch(); // refresh parent list
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update URL");
+    } finally {
+      setUpdating(false);
+    }
+  };
 
   // DELETE Handler
   const deleteHandler = async () => {
@@ -114,10 +155,30 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate, onDelete 
             <FaExternalLinkAlt className="text-linkColor" />
           </div>
 
-          <div className="flex items-center gap-1 ">
-            <h3 className=" text-slate-700 font-[400] text-[17px] ">
-              {originalUrl}
-            </h3>
+          {/* Editable Original URL */}
+          <div className="flex items-center gap-2">
+            {editing ? (
+              <input
+                type="text"
+                value={newOriginalUrl}
+                onChange={(e) => setNewOriginalUrl(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && updateOriginalUrl()}
+                onBlur={updateOriginalUrl}
+                disabled={updating}
+                autoFocus
+                className="border px-2 py-1 rounded w-full"
+              />
+            ) : (
+              <>
+                <h3 className="text-slate-700 font-[400] text-[17px]">
+                  {newOriginalUrl}
+                </h3>
+                <FaEdit
+                  className="text-gray-500 cursor-pointer hover:text-blue-500"
+                  onClick={() => setEditing(true)}
+                />
+              </>
+            )}
           </div>
 
           <div className="flex   items-center gap-8 pt-6 ">

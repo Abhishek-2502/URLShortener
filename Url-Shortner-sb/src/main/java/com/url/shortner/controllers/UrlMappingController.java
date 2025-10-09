@@ -118,4 +118,18 @@ public class UrlMappingController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Update Original Url keeping short URL same
+     */
+    @PutMapping("/{shortUrl}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<UrlMappingDTO> updateOriginalUrl(@PathVariable @NotBlank String shortUrl,
+                                                           @Valid @RequestBody Map<String, String> request,
+                                                           Principal principal) {
+        String newOriginalUrl = request.get("originalUrl");
+        User user = userService.findByUsername(principal.getName());
+        UrlMappingDTO updatedUrlMapping = urlMappingService.updateOriginalUrl(shortUrl, newOriginalUrl, user);
+        return ResponseEntity.ok(updatedUrlMapping);
+    }
+
 }
