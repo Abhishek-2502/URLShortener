@@ -204,7 +204,7 @@ const ShortenItem = ({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex  flex-1  sm:justify-end items-center gap-4">
+        <div className="flex  flex-1 flex-wrap sm:justify-end items-center gap-4">
           {/* Copy Button */}
           <CopyToClipboard
             onCopy={() => setIsCopied(true)}
