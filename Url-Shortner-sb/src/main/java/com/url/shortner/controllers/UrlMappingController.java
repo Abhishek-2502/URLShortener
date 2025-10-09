@@ -18,6 +18,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -97,6 +98,24 @@ public class UrlMappingController {
 
         Map<LocalDate, Long> totalClicks = urlMappingService.getTotalClicksByUserAndDate(user, start, end);
         return ResponseEntity.ok(totalClicks);
-
     }
+
+    /**
+     * Delete a short URL
+     */
+    @DeleteMapping("/{shortUrl}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Map<String, String>> deleteShortUrl(@PathVariable @NotBlank String shortUrl,
+                                                              Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        urlMappingService.deleteUrlMapping(shortUrl, user);
+
+        // Return a success message
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Short URL deleted successfully");
+        response.put("shortUrl", shortUrl);
+
+        return ResponseEntity.ok(response);
+    }
+
 }

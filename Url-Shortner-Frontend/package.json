@@ -27,6 +27,7 @@
     "react-loader-spinner": "^6.1.6",
     "react-query": "^3.39.3",
     "react-router-dom": "^7.1.1",
+    "react-toastify": "^11.0.5",
     "three": "^0.180.0",
     "vanta": "^0.5.24"
   },
