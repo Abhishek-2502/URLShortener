@@ -10,7 +10,7 @@ function Loader() {
             visible={true}
             height="65"
             width="65"
-            color="red"
+            strokeColor="RoyalBlue"
             strokeWidth="5"
             animationDuration="0.75"
             ariaLabel="rotating-lines-loading"

@@ -114,7 +114,21 @@ Authorization: Bearer <JWT_TOKEN>
 
 ---
 
-### **5. Get URL Analytics by Date Range** — `GET`
+### **5. Delete Short URL** — `DELETE`
+
+```
+http://localhost:8081/api/urls/{shortUrl}
+```
+
+**Headers:**
+
+```
+Authorization: Bearer <JWT_TOKEN>
+```
+
+---
+
+### **6. Get URL Analytics by Date Range** — `GET`
 
 ```
 http://localhost:8081/api/urls/analytics/{shortUrl}?startDate=2025-10-01T00:00:00&endDate=2025-10-09T23:59:59
@@ -134,7 +148,7 @@ Authorization: Bearer <JWT_TOKEN>
 
 ---
 
-### **6. Get Total Clicks by Date Range** — `GET`
+### **7. Get Total Clicks by Date Range** — `GET`
 
 ```
 http://localhost:8081/api/urls/totalClicks?startDate=2025-10-01&endDate=2025-10-09
@@ -148,7 +162,7 @@ Authorization: Bearer <JWT_TOKEN>
 
 ---
 
-### **7. Redirect Short URL** — `GET`
+### **8. Redirect Short URL** — `GET`
 
 ```
 http://localhost:8081/{shortUrl}

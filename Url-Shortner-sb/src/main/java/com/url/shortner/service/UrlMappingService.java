@@ -7,6 +7,7 @@ import com.url.shortner.models.UrlMapping;
 import com.url.shortner.models.User;
 import com.url.shortner.repository.ClickEventRepository;
 import com.url.shortner.repository.UrlMappingRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -105,5 +107,24 @@ public class UrlMappingService {
             clickEventRepository.save(clickEvent);
         }
         return urlMapping;
+    }
+
+    @Transactional  // Ensure all deletions happen in a single transaction
+    public void deleteUrlMapping(String shortUrl, User user) {
+        UrlMapping urlMapping = urlMappingRepository.findByShortUrl(shortUrl);
+
+        if (urlMapping == null) {
+            throw new NoSuchElementException("URL mapping not found");
+        }
+
+        if (urlMapping.getUser().getId() != user.getId()) {
+            throw new SecurityException("You don't have permission to delete this URL");
+        }
+
+        // Delete all click events related to this URL
+        clickEventRepository.deleteByUrlMapping(urlMapping);
+
+        // Delete the URL mapping itself
+        urlMappingRepository.delete(urlMapping);
     }
 }

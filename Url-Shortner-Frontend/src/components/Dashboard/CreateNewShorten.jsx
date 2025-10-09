@@ -1,17 +1,16 @@
-
-import React, { useState } from 'react'
-import { useStoreContext } from '../../contextApi/ContextApi';
-import { useForm } from 'react-hook-form';
-import { data } from 'autoprefixer';
-import TextField from '../TextField';
-import { Tooltip } from '@mui/material';
-import { RxCross2 } from 'react-icons/rx';
-import api from '../../apis/api';
-import toast from 'react-hot-toast';
+import React, { useState } from "react";
+import { useStoreContext } from "../../contextApi/ContextApi";
+import { useForm } from "react-hook-form";
+import { data } from "autoprefixer";
+import TextField from "../TextField";
+import { Tooltip } from "@mui/material";
+import { RxCross2 } from "react-icons/rx";
+import api from "../../apis/api";
+import toast from "react-hot-toast";
 
 const CreateNewShorten = ({ setOpen, refetch }) => {
-    const { token } = useStoreContext();
-    const [loading, setLoading] = useState(false);
+  const { token } = useStoreContext();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -28,43 +27,44 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
   const createShortUrlHandler = async (data) => {
     setLoading(true);
     try {
-        const { data: res } = await api.post("/api/urls/shorten", data, {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: "Bearer " + token,
-            },
-          });
+      const { data: res } = await api.post("/api/urls/shorten", data, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
 
-          const shortenUrl = `${import.meta.env.VITE_REACT_FRONT_END_URL + "/s/" + `${res.shortUrl}`}`;
-          navigator.clipboard.writeText(shortenUrl).then(() => {
-            toast.success("Short URL Copied to Clipboard", {
-                position: "bottom-center",
-                className: "mb-5",
-                duration: 3000,
-            });
-          });
+      const shortenUrl = `${
+        import.meta.env.VITE_REACT_FRONT_END_URL + "/s/" + `${res.shortUrl}`
+      }`;
+      navigator.clipboard.writeText(shortenUrl).then(() => {
+        toast.success("Short URL Copied to Clipboard", {
+          position: "bottom-center",
+          className: "mb-5",
+          duration: 3000,
+        });
+      });
 
-          // await refetch();
-          reset();
-          setOpen(false);
+      // REFRESH LIST
+      if (refetch) await refetch();
+      reset();
+      setOpen(false);
     } catch (error) {
-        toast.error("Create ShortURL Failed");
+      toast.error("Create ShortURL Failed");
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
-
   return (
     <div className=" flex justify-center items-center bg-white rounded-md">
-    <form
+      <form
         onSubmit={handleSubmit(createShortUrlHandler)}
         className="sm:w-[450px] w-[360px] relative  shadow-custom pt-8 pb-5 sm:px-8 px-4 rounded-lg"
       >
-
         <h1 className="font-montserrat sm:mt-0 mt-3 text-center  font-bold sm:text-2xl text-[22px] text-slate-800 ">
-                Create New Shorten Url
+          Create New Shorten Url
         </h1>
 
         <hr className="mt-2 sm:mb-5 mb-3 text-slate-950" />
@@ -100,10 +100,9 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
             </button>
           </Tooltip>
         )}
-
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default CreateNewShorten
+export default CreateNewShorten;
