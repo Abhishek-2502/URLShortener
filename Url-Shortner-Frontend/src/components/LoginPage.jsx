@@ -41,7 +41,8 @@ const LoginPage = () => {
             navigate("/dashboard");
         } catch (error) {
             console.log(error);
-            toast.error("Login Failed!")
+            const errorMessage = error.response?.data?.error || "Login Failed!";
+            toast.error(errorMessage);
         } finally {
             setLoader(false);
         }

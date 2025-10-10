@@ -43,7 +43,7 @@ public class UrlMappingService {
     }
 
     // Generate a random 8-character alphanumeric string
-    private String generateShortUrl() {
+    private String generateShortUrl1() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
         Random random = new Random();
@@ -53,8 +53,24 @@ public class UrlMappingService {
             shortUrl.append(characters.charAt(random.nextInt(characters.length())));
         }
         return shortUrl.toString();
-
     }
+
+    private String generateShortUrl() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        String shortUrl;
+
+        do {
+            StringBuilder sb = new StringBuilder(8);
+            for (int i = 0; i < 8; i++) {
+                sb.append(characters.charAt(random.nextInt(characters.length())));
+            }
+            shortUrl = sb.toString();
+        } while (urlMappingRepository.existsByShortUrl(shortUrl));
+
+        return shortUrl;
+    }
+
 
     // Convert UrlMapping entity to UrlMappingDTO
     private UrlMappingDTO convertToDto(UrlMapping urlMapping){
