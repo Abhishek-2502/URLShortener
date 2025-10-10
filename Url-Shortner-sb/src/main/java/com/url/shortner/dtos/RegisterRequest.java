@@ -24,5 +24,5 @@ public class RegisterRequest {
     private  String password;
 
     @NotEmpty(message = "At least one role must be specified")
-    private Set<@NotBlank(message = "Role name cannot be blank") String> role;
+    private Set<@NotBlank(message = "Role name cannot be blank") String> role = Set.of("ROLE_USER");
 }

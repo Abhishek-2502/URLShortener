@@ -37,6 +37,12 @@ public class UserService {
     private JwtUtils jwtUtils;
 
     public User registerUser(User user){
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new RuntimeException("Username already exists");
+        }
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new RuntimeException("Email already exists");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -53,7 +59,7 @@ public class UserService {
 
     public User findByUsername(String name) {
         return userRepository.findByUsername(name).orElseThrow(
-                () -> new UsernameNotFoundException("user not found with username "+ name)
+                () -> new UsernameNotFoundException("User not found with username "+ name)
         );
     }
 }
